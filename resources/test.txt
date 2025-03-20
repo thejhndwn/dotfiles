@@ -1,0 +1,6 @@
+column -t -s '<icons>'                  it will format a table, using icons as the separator  
+# Linux Utils                                                                                 
+## grep                                                                                       
+grep                                                                                          
+# Github CLI commands (gh)                                                                    
+gh repo clone <username>    <dist>                                                             for cloning in a github repo using CLI
