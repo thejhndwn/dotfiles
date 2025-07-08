@@ -1,0 +1,71 @@
+#!/bin/bash
+
+
+
+echo 'running plan command'
+case "$1" in 
+    "todo")
+        case "$2" in
+            "")
+            #TODO: show all todays todos
+            echo 'todays todo'
+            ;;
+
+            # TODO: add flags for different todo granularities, like a for all, d for directory
+            "mark"|"m"|"-m"|"--mark")
+                case "$3" in
+                    "")
+                        #TODO: enter mark mode
+                        echo 'entering todo completion marker mode'
+                        ;;
+                    *)
+                        if [[ "$3" =~ ^[0-9]+$ ]]; then
+                            # TODO: check if the todo item exists, make todo items getter 
+                            # if it does then remove and exit, if it doesn't then reply 
+                            echo 'entered specific marker mode'
+                        else
+                            echo "unknown command: $3"
+                        fi
+                        ;;
+                esac
+                ;;
+            "new"|"n"|"-n"|"--new")
+                case "$3" in 
+                    "today"|"t"|"-t"|"--t"|"--today") 
+                        # TODO: insert next text in today's todo
+                        echo "let's insert $4"
+                        ;; 
+                    "project"|"p"|"-p"|"--p"|"--project")
+                        # TODO: insert next text in projects todo
+                        ;;
+                    "quick"|"q"|"-q"|"--q"|"--quick")
+                        # TODO; same
+                        ;;
+                    "future"|"f"|"-f"|"--f"|"--future")
+                        # TODO: same
+                        ;;
+                    *)
+                        # TODO: insert into misc, but make sure it stops random commands
+                        ;;
+                esac
+            ;;
+        esac
+    ;;
+    "goals")
+        # TODO: open the goals page 
+    ;;
+    "highlights")
+        # TODO: next text appends to highlights with timestamp
+    ;;
+    "notes")
+        # TODO: next text appends to notes with timestmap
+    ;;
+
+    "help"|"--help"|"")
+        echo "  todo        Show today's todos"
+        ;;
+    *)
+        echo "Unknown command: $1"
+        echo "What are you trying to do :/"
+        ;;
+esac
