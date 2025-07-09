@@ -4,15 +4,17 @@
 
 echo 'running plan command...'
 
-today=$(date +"/%Y/%m/%d")
+TODAY_DATE=$(date +"/%Y/%m/%d")
 echo "$today"
-planner="$HOME/dotfiles/plan"
-todo="$planner/todo"
+PLANNER_DIR="$HOME/dotfiles/plan"
+TODO_DIR="$PLANNER_DIR/todo"
+TODAYS_TODO_FILE="$TODO_DIR$TODAY_DATE.md"
+
 
 handle_missing_todo(){
-    last_entry=$(find "$todo" -type f -name "*.md" | sort | tail -n 1)
+    last_entry=$(find "$TODO_DIR" -type f -name "*.md" | sort | tail -n 1)
     echo "last planner entry: $last_entry"
-
+    grep -v -E  "^-\s*\[[Xx]\]" "$last_entry" > "$TODAYS_TODO_FILE" 
 }
 
 case "$1" in 
@@ -21,13 +23,14 @@ case "$1" in
             "")
             #TODO: show all todays todos
             echo 'todays todo'
-            echo "$planner/todo$today.md"
-            if [[ -f "$planner/todo$today.md" ]]; then
+            echo "$TODAYS_TODO_FILE"
+            if [[ -f "$TODAYS_TODO_FILE" ]]; then
                 echo "file exists, open file"
-                vim "$planner/todo$today.md"
+                vim "$TODAYS_TODO_FILE.md"
             else
-                echo "file doesn't exist, make new one"
+                echo "today's file doesn't exist, make new one"
                 # TODO: insert/make todo file doesn't exist function
+                handle_missing_todo
             fi 
             ;;
             # TODO: add flags for different todo granularities, like a for all, d for directory
