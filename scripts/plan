@@ -95,6 +95,7 @@ case "$1" in
             echo "[$(date +"%Y-%m-%d")] $2" >> $TODAYS_HIGHLIGHTS_FILE
         fi
     ;;
+    # TODO: check for existing file, generate if required
     "notes")
         # No second argument? Default behavior
         if [[ -z "$2" ]]; then
