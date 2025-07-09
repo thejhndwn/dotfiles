@@ -27,14 +27,16 @@ case "$1" in
     "todo")
         case "$2" in
             "")
-            #TODO: right now it does a vim, make the default a cat, but make a flag for a vim
-            if [[ -f "$TODAYS_TODO_FILE" ]]; then
-                echo "file exists, open file"
+                if [[ -f "$TODAYS_TODO_FILE" ]]; then
+                    echo "file exists, open file"
+                    cat "$TODAYS_TODO_FILE"
+                else
+                    echo "today's file doesn't exist, make new one"
+                    handle_missing_todo
+                fi 
+            ;;
+            "v"|"-v"|"--v")
                 vim "$TODAYS_TODO_FILE"
-            else
-                echo "today's file doesn't exist, make new one"
-                handle_missing_todo
-            fi 
             ;;
             # TODO: add flags for different todo granularities, like a for all, d for directory
             "mark"|"m"|"-m"|"--mark")
@@ -42,6 +44,7 @@ case "$1" in
                     "")
                         #TODO: enter mark mode
                         echo 'entering todo completion marker mode'
+                        plan-marker "$TODAYS_TODO_FILE"
                         ;;
                     *)
                         if [[ "$3" =~ ^[0-9]+$ ]]; then
@@ -84,7 +87,13 @@ case "$1" in
         fi
     ;;
     "highlights")
-        echo "[$(date +"%Y-%m-%d")] $2" >> $TODAYS_HIGHLIGHTS_FILE
+        if [[ -z $2 ]]; then
+            cat "$TODAYS_HIGHLIGHTS_FILE"
+        elif [[ "$2" == "-v" ]]; then
+            vim "$TODAYS_HIGHLIGHTS_FILE"
+        else
+            echo "[$(date +"%Y-%m-%d")] $2" >> $TODAYS_HIGHLIGHTS_FILE
+        fi
     ;;
     "notes")
         # No second argument? Default behavior
