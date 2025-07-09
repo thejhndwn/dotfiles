@@ -6,14 +6,15 @@ echo 'running plan command...'
 
 TODAY_DATE=$(date +"/%Y/%m/%d")
 TODAY_YEAR=$(date +"/%Y")
-echo "$today"
 PLANNER_DIR="$HOME/dotfiles/plan"
 HIGHLIGHTS_DIR="$PLANNER_DIR/highlights"
 NOTES_DIR="$PLANNER_DIR/notes"
 TODO_DIR="$PLANNER_DIR/todo"
+GOALS_DIR="$PLANNER_DIR/goals"
 TODAYS_TODO_FILE="$TODO_DIR$TODAY_DATE.md"
 TODAYS_HIGHLIGHTS_FILE="$HIGHLIGHTS_DIR$TODAY_YEAR.md"
 TODAYS_NOTES_FILE="$NOTES_DIR$TODAY_DATE.md"
+TODAYS_GOALS_FILE="$GOALS_DIR$TODAY_YEAR.md"
 
 
 handle_missing_todo(){
@@ -27,14 +28,11 @@ case "$1" in
         case "$2" in
             "")
             #TODO: right now it does a vim, make the default a cat, but make a flag for a vim
-            echo 'todays todo'
-            echo "$TODAYS_TODO_FILE"
             if [[ -f "$TODAYS_TODO_FILE" ]]; then
                 echo "file exists, open file"
                 vim "$TODAYS_TODO_FILE"
             else
                 echo "today's file doesn't exist, make new one"
-                # TODO: insert/make todo file doesn't exist function
                 handle_missing_todo
             fi 
             ;;
@@ -79,12 +77,14 @@ case "$1" in
         esac
     ;;
     "goals")
-        # TODO: open the goals page 
+        if [[ -z $2 ]]; then 
+            cat "$TODAYS_GOALS_FILE"
+        else
+            vim "$TODAYS_GOALS_FILE"
+        fi
     ;;
     "highlights")
-        # TODO: next text appends to highlights with timestamp
-        echo "$TODAY_YEAR"
-        echo "$3" >> $TODAYS_HIGHLIGHTS_FILE
+        echo "[$(date +"%Y-%m-%d")] $2" >> $TODAYS_HIGHLIGHTS_FILE
     ;;
     "notes")
         # No second argument? Default behavior
