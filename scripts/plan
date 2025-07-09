@@ -5,10 +5,15 @@
 echo 'running plan command...'
 
 TODAY_DATE=$(date +"/%Y/%m/%d")
+TODAY_YEAR=$(date +"/%Y")
 echo "$today"
 PLANNER_DIR="$HOME/dotfiles/plan"
+HIGHLIGHTS_DIR="$PLANNER_DIR/highlights"
+NOTES_DIR="$PLANNER_DIR/notes"
 TODO_DIR="$PLANNER_DIR/todo"
 TODAYS_TODO_FILE="$TODO_DIR$TODAY_DATE.md"
+TODAYS_HIGHLIGHTS_FILE="$HIGHLIGHTS_DIR$TODAY_YEAR.md"
+TODAYS_NOTES_FILE="$NOTES_DIR$TODAY_DATE.md"
 
 
 handle_missing_todo(){
@@ -21,12 +26,12 @@ case "$1" in
     "todo")
         case "$2" in
             "")
-            #TODO: show all todays todos
+            #TODO: right now it does a vim, make the default a cat, but make a flag for a vim
             echo 'todays todo'
             echo "$TODAYS_TODO_FILE"
             if [[ -f "$TODAYS_TODO_FILE" ]]; then
                 echo "file exists, open file"
-                vim "$TODAYS_TODO_FILE.md"
+                vim "$TODAYS_TODO_FILE"
             else
                 echo "today's file doesn't exist, make new one"
                 # TODO: insert/make todo file doesn't exist function
@@ -78,9 +83,21 @@ case "$1" in
     ;;
     "highlights")
         # TODO: next text appends to highlights with timestamp
+        echo "$TODAY_YEAR"
+        echo "$3" >> $TODAYS_HIGHLIGHTS_FILE
     ;;
     "notes")
-        # TODO: next text appends to notes with timestmap
+        # No second argument? Default behavior
+        if [[ -z "$2" ]]; then
+            cat "$TODAYS_NOTES_FILE"
+        elif [[ "$2" == "-v" ]]; then 
+                vim "$TODAYS_NOTES_FILE"
+        else
+            # Append timestamped note
+            note_text="${@:2}"  # everything after 'notes'
+            timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+            echo "[$timestamp] $note_text" >> "$TODAYS_NOTES_FILE"
+        fi
     ;;
 
     "help"|"--help"|"")
