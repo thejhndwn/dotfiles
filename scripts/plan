@@ -97,6 +97,9 @@ case "$1" in
     ;;
     # TODO: check for existing file, generate if required
     "notes")
+        if [[ ! -f $TODAYS_NOTES_FILE ]]; then
+            touch $TODAYS_NOTES_FILE
+        fi
         # No second argument? Default behavior
         if [[ -z "$2" ]]; then
             cat "$TODAYS_NOTES_FILE"
