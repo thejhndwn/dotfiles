@@ -3,7 +3,7 @@ alias pg='plan goals'
 alias pp='plan todo'
 alias gg='git status'
 alias ga='git add .'
-alias gj='git commit -m'
+alias gm='git commit -m'
 alias gp='git push'
 
 alias cc="vim $HOME/dotfiles/cmds.md"
