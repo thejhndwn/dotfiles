@@ -4,9 +4,11 @@
 
 echo 'running plan command...'
 
+echo 
+
 TODAY_DATE=$(date +"/%Y/%m/%d")
 TODAY_YEAR=$(date +"/%Y")
-PLANNER_DIR="$HOME/dotfiles/plan"
+PLANNER_DIR="$DOTFILES_ROOT/plan"
 HIGHLIGHTS_DIR="$PLANNER_DIR/highlights"
 NOTES_DIR="$PLANNER_DIR/notes"
 TODO_DIR="$PLANNER_DIR/todo"
