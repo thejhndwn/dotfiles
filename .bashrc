@@ -115,5 +115,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export PATH="$HOME/dotfiles/scripts:$PATH"
-export PLANNER_ROOT="$HOME/dotfiles/plan"
+
+# Load environment variables
+[ -f "$HOME/.env" ] && export $(grep -v '^#' $HOME/.env | xargs)
+[ -f "$HOME/.env.local" ] && export $(grep -v '^#' $HOME/.env.local | xargs)
+
+
+export PATH="$DOTFILES_ROOT/scripts:$PATH"

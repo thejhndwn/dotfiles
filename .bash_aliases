@@ -6,4 +6,6 @@ alias ga='git add .'
 alias gm='git commit -m'
 alias gp='git push'
 
-alias cc="vim $HOME/dotfiles/cmds.md"
+alias cc="vim $DOTFILES_ROOT/cmds.md"
+alias gpp="$DOTFILES_ROOT/scripts/git_commit_push.sh"
+
