@@ -74,6 +74,7 @@ echo "Creating symlinks..."
 ln -sf "$DOTFILES_ROOT/.bashrc" ~/.bashrc
 ln -sf "$DOTFILES_ROOT/.bash_aliases" ~/.bash_aliases  
 ln -sf "$DOTFILES_ROOT/.vimrc" ~/.vimrc
+ln -sf "$DOTFILES_ROOT/.env.local" ~/.env.local
 
 # making scripts executable
 if [ -d "$DOTFILES_ROOT/scripts" ]; then
