@@ -7,6 +7,7 @@ echo 'running plan command...'
 echo 
 
 TODAY_DATE=$(date +"/%Y/%m/%d")
+TOMORROW_DATE=$(date -d "tomorrow" +"/%Y/%m/%d")
 TODAY_YEAR=$(date +"/%Y")
 PLANNER_DIR="$DOTFILES_ROOT/plan"
 HIGHLIGHTS_DIR="$PLANNER_DIR/highlights"
@@ -17,12 +18,15 @@ TODAYS_TODO_FILE="$TODO_DIR$TODAY_DATE.md"
 TODAYS_HIGHLIGHTS_FILE="$HIGHLIGHTS_DIR$TODAY_YEAR.md"
 TODAYS_NOTES_FILE="$NOTES_DIR$TODAY_DATE.md"
 TODAYS_GOALS_FILE="$GOALS_DIR$TODAY_YEAR.md"
+TOMORROWS_TODO_FILE="$TODO_DIR$TOMORROW_DATE.md"
 
 
 handle_missing_todo(){
-    last_entry=$(find "$TODO_DIR" -type f -name "*.md" | sort | tail -n 1)
+    local file="$1"
+    local last_entry=$(find "$TODO_DIR" -type f -name "*.md" | sort | tail -n 1)
     echo "last planner entry: $last_entry"
-    grep -v -E  "^-\s*\[[Xx]\]" "$last_entry" > "$TODAYS_TODO_FILE" 
+    grep -v -E  "^-\s*\[[Xx]\]" "$last_entry" > "$file" 
+    vim "$file"
 }
 
 case "$1" in 
@@ -34,7 +38,16 @@ case "$1" in
                     cat "$TODAYS_TODO_FILE"
                 else
                     echo "today's file doesn't exist, make new one"
-                    handle_missing_todo
+                    handle_missing_todo "$TODAYS_TODO_FILE"
+                fi 
+            ;;
+            "tom"|"-t"|"--t"|"t")
+                if [[ -f "$TOMORROWS_TODO_FILE" ]]; then
+                    echo "file exists, open file"
+                    vim "$TOMORROWS_TODO_FILE"
+                else
+                    echo "today's file doesn't exist, make new one"
+                    handle_missing_todo "$TOMORROWS_TODO_FILE"
                 fi 
             ;;
             "v"|"-v"|"--v")
