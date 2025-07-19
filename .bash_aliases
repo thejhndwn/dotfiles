@@ -8,4 +8,6 @@ alias gp='git push'
 
 alias cc="vim $DOTFILES_ROOT/cmds.md"
 alias gpp="$DOTFILES_ROOT/scripts/git_commit_push.sh"
+alias df="cd $DOTFILES_ROOT"
+alias dff='cd $DOTFILES_ROOT/${date +%Y/%m}'
 
