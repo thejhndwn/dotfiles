@@ -114,6 +114,7 @@ fi
 
 
 export PATH="$DOTFILES_ROOT/scripts:$PATH"
+export PATH="$PATH:/usr/local/go/bin"
 
 
 # Alias definitions.
