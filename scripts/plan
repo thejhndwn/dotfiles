@@ -120,6 +120,11 @@ case "$1" in
             cat "$TODAYS_NOTES_FILE"
         elif [[ "$2" == "-v" ]]; then 
                 nvim "$TODAYS_NOTES_FILE"
+	elif [[ "$2" == "-l" ]]; then
+		note_text="${@:3}"
+		timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+		echo "[$timestamp][learn] $note_text" >> "$TODAYS_NOTES_FILE"
+
         else
             # Append timestamped note
             note_text="${@:2}"  # everything after 'notes'
