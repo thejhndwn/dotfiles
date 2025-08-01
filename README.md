@@ -25,4 +25,4 @@ bash install.sh
 - add go and python installation
 - remove the env loading stuff it's so bad, just keep it in .bashrc
 - rewrite ./scripts/plan into python
-
+- add a command to commit and push/pr to all the .git directory's under $PROJECT_DIR
