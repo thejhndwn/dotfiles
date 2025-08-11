@@ -30,5 +30,10 @@ gh repo create <project-name>                   | create github repo. flags:
 ## websocket
 wscat --connect ws://<ip>:<port>                | open continuous connection to websocket, from npm
 
+# Arch Commands
+
+## esc tab keyboard mapping
+setxkbmap -option caps:swapescape               | swaps the escape and capslock keymapping
+
 # Packages
 glow                                            | renders markdown in terminal
