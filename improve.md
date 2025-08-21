@@ -1,5 +1,0 @@
-- find a way to study chinese
-- find a way to study go
-- find a way to read papers
-- find a way to apply to jobs
-- find a way to practice leetcode
